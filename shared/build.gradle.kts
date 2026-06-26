@@ -4,6 +4,7 @@ import java.io.File
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidMultiplatformLibrary)
+    alias(libs.plugins.vanniktech.publish)
 }
 
 fun sdkPath(sdk: String): String =
@@ -115,4 +116,42 @@ afterEvaluate {
         it.name.startsWith("linkDebugFrameworkIosSimulatorArm64") ||
                 it.name.startsWith("linkReleaseFrameworkIosSimulatorArm64")
     }.configureEach { dependsOn(simArchive) }
+}
+
+mavenPublishing {
+    publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL)
+    signAllPublications()
+
+    coordinates(
+        groupId = "io.github.froyder",
+        artifactId = "kmp-biometric-auth",
+        version = "1.0.0"
+    )
+
+    pom {
+        name = "KMP Biometric Auth"
+        description = "Kotlin Multiplatform biometric authentication library with hardware-backed crypto. Keystore-bound AES/GCM on Android, Keychain with biometryCurrentSet on iOS."
+        url = "https://github.com/Froyder/kmp-biometric-auth"
+
+        licenses {
+            license {
+                name = "Apache License 2.0"
+                url = "https://www.apache.org/licenses/LICENSE-2.0"
+            }
+        }
+
+        developers {
+            developer {
+                id = "froyder"
+                name = "Ilia Khomutskikh"
+                email = "homutskih@gmail.com"
+            }
+        }
+
+        scm {
+            url = "https://github.com/Froyder/kmp-biometric-auth"
+            connection = "scm:git:git://github.com/Froyder/kmp-biometric-auth.git"
+            developerConnection = "scm:git:ssh://git@github.com/Froyder/kmp-biometric-auth.git"
+        }
+    }
 }
