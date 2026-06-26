@@ -1,0 +1,5 @@
+language = Objective-C
+package = keychainhelper
+headers = KeychainHelper.h
+headerFilter = KeychainHelper.h
+linkerOpts = -framework Security -framework LocalAuthentication -framework Foundation
