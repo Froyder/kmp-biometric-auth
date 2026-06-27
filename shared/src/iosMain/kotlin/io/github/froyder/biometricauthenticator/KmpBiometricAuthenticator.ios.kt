@@ -13,7 +13,11 @@ private const val STATUS_NOT_AVAILABLE = 3L
 
 actual class KmpBiometricAuthenticator {
     @OptIn(ExperimentalForeignApi::class)
-    actual suspend fun authenticate(title: String, subtitle: String): BiometricResult {
+    actual suspend fun authenticate(
+        title: String,
+        subtitle: String,
+        cancelButtonText: String
+    ): BiometricResult {
         val result = KeychainBiometricHelper.authenticateWithService(
             service = KEYCHAIN_SERVICE,
             account = KEYCHAIN_ACCOUNT,

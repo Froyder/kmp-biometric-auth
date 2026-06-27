@@ -21,7 +21,11 @@ private const val KEYSTORE_PROVIDER = "AndroidKeyStore"
 actual class KmpBiometricAuthenticator(
     private val activity: FragmentActivity
 ) {
-    actual suspend fun authenticate(title: String, subtitle: String): BiometricResult {
+    actual suspend fun authenticate(
+        title: String,
+        subtitle: String,
+        cancelButtonText: String
+    ): BiometricResult {
         val canAuth = BiometricManager.from(activity)
             .canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)
         if (canAuth != BiometricManager.BIOMETRIC_SUCCESS) {
@@ -77,7 +81,7 @@ actual class KmpBiometricAuthenticator(
                 BiometricPrompt.PromptInfo.Builder()
                     .setTitle(title)
                     .setSubtitle(subtitle)
-                    .setNegativeButtonText("Cancel")
+                    .setNegativeButtonText(cancelButtonText)
                     .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
                     .build(),
                 BiometricPrompt.CryptoObject(cipher)
