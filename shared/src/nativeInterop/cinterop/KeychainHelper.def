@@ -2,4 +2,6 @@ language = Objective-C
 package = keychainhelper
 headers = KeychainHelper.h
 headerFilter = KeychainHelper.h
+staticLibraries = libKeychainHelper.a
+libraryPaths = /Users/farmy/AndroidStudioProjects/BiometricAuthenticator/shared/build/keychainLib/iosArm64
 linkerOpts = -framework Security -framework LocalAuthentication -framework Foundation
