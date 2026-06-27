@@ -1,10 +1,13 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.io.File
+import org.gradle.plugins.signing.SigningExtension
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidMultiplatformLibrary)
     alias(libs.plugins.vanniktech.publish)
+    id("signing")
 }
 
 fun sdkPath(sdk: String): String =
@@ -116,6 +119,25 @@ afterEvaluate {
         it.name.startsWith("linkDebugFrameworkIosSimulatorArm64") ||
                 it.name.startsWith("linkReleaseFrameworkIosSimulatorArm64")
     }.configureEach { dependsOn(simArchive) }
+}
+
+val localProps = gradleLocalProperties(rootDir, providers)
+
+group = "io.github.froyder"
+version = "1.0.0"
+
+val signingKeyId = localProps.getProperty("signing.keyId") ?: ""
+val signingPassword = localProps.getProperty("signing.password") ?: ""
+val signingSecretKeyFile = localProps.getProperty("signing.secretKeyFile") ?: ""
+
+if (signingKeyId.isNotEmpty() && signingSecretKeyFile.isNotEmpty()) {
+    extensions.configure<SigningExtension> {
+        useInMemoryPgpKeys(
+            signingKeyId,
+            file(signingSecretKeyFile).readText(),
+            signingPassword
+        )
+    }
 }
 
 mavenPublishing {

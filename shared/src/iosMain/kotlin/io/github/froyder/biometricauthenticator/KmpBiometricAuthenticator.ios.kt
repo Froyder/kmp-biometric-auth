@@ -20,7 +20,7 @@ actual class KmpBiometricAuthenticator {
             subtitle = subtitle.ifBlank { title }
         )
 
-        return when (result?.status) {
+        return when (result.status) {
             STATUS_SUCCESS -> {
                 println("KmpBiometricAuth: ${result.proofHex}")
                 BiometricResult.Success
@@ -31,7 +31,7 @@ actual class KmpBiometricAuthenticator {
                 result.errorMessage ?: "Biometric settings changed"
             )
             else -> BiometricResult.Error(
-                result?.errorMessage ?: "Unknown error"
+                result.errorMessage ?: "Unknown error"
             )
         }
     }
