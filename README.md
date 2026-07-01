@@ -1,5 +1,9 @@
 # KMP Biometric Auth
 
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.froyder/kmp-biometric-auth.svg)](https://central.sonatype.com/artifact/io.github.froyder/kmp-biometric-auth)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Kotlin](https://img.shields.io/badge/kotlin-multiplatform-orange.svg)](https://kotlinlang.org/docs/multiplatform.html)
+
 A Kotlin Multiplatform library for hardware-backed biometric authentication.
 
 - **Android**: Keystore-bound AES/GCM encryption via `BiometricPrompt` + `CryptoObject`
