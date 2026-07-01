@@ -26,7 +26,6 @@ actual class KmpBiometricAuthenticator {
 
         return when (result.status) {
             STATUS_SUCCESS -> {
-                println("KmpBiometricAuth: ${result.proofHex}")
                 BiometricResult.Success
             }
             STATUS_CANCELLED -> BiometricResult.Cancelled
